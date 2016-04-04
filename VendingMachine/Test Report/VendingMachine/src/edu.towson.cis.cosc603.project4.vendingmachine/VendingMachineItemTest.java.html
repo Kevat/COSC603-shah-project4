@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>VendingMachineItemTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">VendingMachine (Apr 1, 2016 1:50:25 PM)</a> &gt; <a href="../../index.html" class="el_group">VendingMachine</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc603.project4.vendingmachine</a> &gt; <span class="el_source">VendingMachineItemTest.java</span></div><h1>VendingMachineItemTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc603.project4.vendingmachine;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * The unit test Class for VendingMachineItem.
+ */
+<span class="fc" id="L12">public class VendingMachineItemTest {</span>
+	/** Declare necessary test objects for {@link VendingMachineItem} */
+	VendingMachineItem vmItem1, vmItem2;
+	
+	/**
+	 * Initializes the necessary test objects for the test cases to use.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+	
+<span class="fc" id="L24">	}</span>
+	
+	/**
+	 * Test for the constructor method of the {@link VendingMachineItem} class
+	 * when given valid input (price greater than or equal to 0).
+	 */
+	@Test
+	public void testConstructorValid() {
+<span class="fc" id="L32">		vmItem1 = new VendingMachineItem(&quot;New Item 1&quot;, 10.23);</span>
+<span class="fc" id="L33">		assertNotNull(vmItem1);</span>
+		
+<span class="fc" id="L35">		vmItem2 = new VendingMachineItem(&quot;New Item 2&quot;, 0);</span>
+<span class="fc" id="L36">		assertNotNull(vmItem2);</span>
+<span class="fc" id="L37">	}</span>
+	
+	/**
+	 * Test for the getName() method of the {@link VendingMachineItem} class
+	 */
+	@Test
+	public void testGetName() {
+<span class="fc" id="L44">		vmItem1 = new VendingMachineItem(&quot;New Item 1&quot;, 10.23);</span>
+<span class="fc" id="L45">		assertEquals(&quot;New Item 1&quot;, vmItem1.getName());</span>
+		
+<span class="fc" id="L47">		vmItem2 = new VendingMachineItem(&quot;New Item 2&quot;, 0);</span>
+<span class="fc" id="L48">		assertEquals(&quot;New Item 2&quot;, vmItem2.getName());</span>
+<span class="fc" id="L49">	}</span>
+	
+	
+	/**
+	 * Test for the constructor method of the {@link VendingMachineItem} class
+	 * when given valid input (price greater than or equal to 0).
+	 */
+	@Test
+	public void testGetPrice() {
+<span class="fc" id="L58">		vmItem1 = new VendingMachineItem(&quot;New Item 1&quot;, 10.23);</span>
+<span class="fc" id="L59">		assertEquals(10.23, vmItem1.getPrice(), 0.000);</span>
+		
+<span class="fc" id="L61">		vmItem2 = new VendingMachineItem(&quot;New Item 2&quot;, 0);</span>
+<span class="fc" id="L62">		assertEquals(0, vmItem2.getPrice(), 0.000);</span>
+<span class="fc" id="L63">	}</span>
+		
+	
+	/**
+	 * Test for the constructor method of the {@link VendingMachineItem} class
+	 * when given invalid input (price less than 0).
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testConstructorInvalid() {
+<span class="nc" id="L72">		vmItem1 = new VendingMachineItem(&quot;New Item 1&quot;, -1);</span>
+<span class="nc" id="L73">	}</span>
+	
+	
+	
+	/**
+	 * Cleans up test objects after a test case is executed.
+	 */
+	@After
+	public void tearDown(){
+<span class="fc" id="L82">		vmItem1 = null;</span>
+<span class="fc" id="L83">		vmItem2 = null;</span>
+<span class="fc" id="L84">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>VendingMachine (Apr 1, 2016 1:50:25 PM)</div></body></html>

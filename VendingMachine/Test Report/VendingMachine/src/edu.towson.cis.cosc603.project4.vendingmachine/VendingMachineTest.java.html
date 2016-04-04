@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>VendingMachineTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">VendingMachine (Apr 1, 2016 1:50:25 PM)</a> &gt; <a href="../../index.html" class="el_group">VendingMachine</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc603.project4.vendingmachine</a> &gt; <span class="el_source">VendingMachineTest.java</span></div><h1>VendingMachineTest.java</h1><pre class="source lang-java linenums">package edu.towson.cis.cosc603.project4.vendingmachine;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * The unit test Class for VendingMachine.
+ */
+<span class="fc" id="L12">public class VendingMachineTest {</span>
+	/** Declare necessary test objects for {@link VendingMachine} */
+	VendingMachineItem vmItem1, vmItem2, vmItem3, vmItem4;
+	VendingMachine vm1;
+	
+	/**
+	 * Initializes the necessary test objects for the test cases to use.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+<span class="fc" id="L24">		vm1 = new VendingMachine();</span>
+<span class="fc" id="L25">		vmItem1 = new VendingMachineItem(&quot;Item 1&quot;, 10);</span>
+<span class="fc" id="L26">		vmItem2 = new VendingMachineItem(&quot;Item 2&quot;, 5.50);</span>
+<span class="fc" id="L27">		vmItem3 = new VendingMachineItem(&quot;Item 2&quot;, 5.50);</span>
+<span class="fc" id="L28">		vmItem4 = new VendingMachineItem(&quot;Item 2&quot;, 5.50);</span>
+<span class="fc" id="L29">	}</span>
+	
+	
+	/**
+	 * Test for the addItem() method of the {@link VendingMachineItem} class
+	 * when given a valid code for an unoccupied slot.
+	 */
+	@Test
+	public void testAddItemValid(){
+		//Check precondition
+<span class="fc" id="L39">		assertNull(vm1.getItem(&quot;A&quot;));</span>
+		//Add Item
+<span class="fc" id="L41">		vm1.addItem(vmItem1, &quot;A&quot;);</span>
+<span class="fc" id="L42">		assertNotNull(vm1.getItem(&quot;A&quot;));</span>
+<span class="fc" id="L43">		assertEquals(vmItem1, vm1.getItem(&quot;A&quot;));		</span>
+		
+		//Check precondition
+<span class="fc" id="L46">		assertNull(vm1.getItem(&quot;B&quot;));</span>
+		//Add Item
+<span class="fc" id="L48">		vm1.addItem(vmItem2, &quot;B&quot;);</span>
+<span class="fc" id="L49">		assertNotNull(vm1.getItem(&quot;B&quot;));</span>
+<span class="fc" id="L50">		assertEquals(vmItem2, vm1.getItem(&quot;B&quot;));</span>
+
+		//Check precondition
+<span class="fc" id="L53">		assertNull(vm1.getItem(&quot;C&quot;));</span>
+		//Add Item
+<span class="fc" id="L55">		vm1.addItem(vmItem3, &quot;C&quot;);</span>
+<span class="fc" id="L56">		assertNotNull(vm1.getItem(&quot;C&quot;));</span>
+<span class="fc" id="L57">		assertEquals(vmItem3, vm1.getItem(&quot;C&quot;));</span>
+
+		//Check precondition
+<span class="fc" id="L60">		assertNull(vm1.getItem(&quot;D&quot;));</span>
+		//Add Item
+<span class="fc" id="L62">		vm1.addItem(vmItem4, &quot;D&quot;);</span>
+<span class="fc" id="L63">		assertNotNull(vm1.getItem(&quot;D&quot;));</span>
+<span class="fc" id="L64">		assertEquals(vmItem4, vm1.getItem(&quot;D&quot;));</span>
+<span class="fc" id="L65">	}</span>
+
+	
+	/**
+	 * Test for the addItem() method of the {@link VendingMachineItem} class
+	 * when given invalid code.
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testAddItemInvalidCode(){
+<span class="nc" id="L74">		vm1.addItem(vmItem1, &quot;!@#&quot;);</span>
+<span class="nc" id="L75">	}</span>
+	
+	
+	/**
+	 * Test for the addItem() method of the {@link VendingMachineItem} class
+	 * when adding item to an occupied slot.
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testAddItemOccupied(){
+<span class="fc" id="L84">		vm1.addItem(vmItem1, &quot;A&quot;);</span>
+<span class="nc" id="L85">		vm1.addItem(vmItem2, &quot;A&quot;);</span>
+<span class="nc" id="L86">	}</span>
+	
+
+	/**
+	 * Test for the removeItem() method of the {@link VendingMachineItem} class
+	 * when given a valid code for an occupied slot.
+	 */
+	@Test
+	public void testRemoveItemValid(){
+<span class="fc" id="L95">		vm1.addItem(vmItem1, &quot;A&quot;);</span>
+<span class="fc" id="L96">		vm1.addItem(vmItem2, &quot;B&quot;);</span>
+		
+<span class="fc" id="L98">		assertEquals(vmItem1, vm1.removeItem(&quot;A&quot;));</span>
+<span class="fc" id="L99">		assertNull(vm1.getItem(&quot;A&quot;));</span>
+<span class="fc" id="L100">		assertNotNull(vm1.getItem(&quot;B&quot;));</span>
+		
+<span class="fc" id="L102">		assertEquals(vmItem2, vm1.removeItem(&quot;B&quot;));</span>
+<span class="fc" id="L103">		assertNull(vm1.getItem(&quot;B&quot;));</span>
+<span class="fc" id="L104">	}</span>
+
+	
+	/**
+	 * Test for the removeItem() method of the {@link VendingMachineItem} class
+	 * when given invalid code.
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testRemoveItemInvalidCode(){
+<span class="fc" id="L113">		vm1.addItem(vmItem1, &quot;A&quot;);</span>
+<span class="nc" id="L114">		vm1.removeItem(&quot;!@#&quot;);</span>
+<span class="nc" id="L115">	}</span>
+	
+	
+	/**
+	 * Test for the removeItem() method of the {@link VendingMachineItem} class
+	 * when removing item from an unoccupied slot.
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testRemoveItemUnoccupied(){
+		//Ensure that slot A is empty
+<span class="fc" id="L125">		assertNull(vm1.getItem(&quot;A&quot;));</span>
+		//Remove item
+<span class="nc" id="L127">		vm1.removeItem(&quot;A&quot;);</span>
+<span class="nc" id="L128">	}</span>
+	
+	
+	/**
+	 * Test for the insertMoney() method of the {@link VendingMachineItem} class
+	 * when given a valid amount (greater than or equal to 0).
+	 */
+	@Test
+	public void testInsertMoneyValid(){
+		//Ensure that the starting balance is 0
+<span class="fc" id="L138">		assertEquals(0, vm1.balance, 0.001);</span>
+		
+<span class="fc" id="L140">		vm1.insertMoney(10);</span>
+<span class="fc" id="L141">		assertEquals(10, vm1.balance,0.001);</span>
+		
+<span class="fc" id="L143">		vm1.insertMoney(0);</span>
+<span class="fc" id="L144">		assertEquals(10, vm1.balance,0.001);</span>
+		
+<span class="fc" id="L146">		vm1.insertMoney(5);</span>
+<span class="fc" id="L147">		assertEquals(15, vm1.balance,0.001);	</span>
+<span class="fc" id="L148">	}</span>
+
+	
+	/**
+	 * Test for the insertMoney() method of the {@link VendingMachineItem} class
+	 * when given an invalid amount (less than 0).
+	 */
+	@Test(expected=VendingMachineException.class)
+	public void testInsertMoneyInvalid(){
+<span class="nc" id="L157">		vm1.insertMoney(-1);</span>
+<span class="nc" id="L158">	}</span>
+	
+
+	/**
+	 * Test for the getBalance() method of the {@link VendingMachineItem} class
+	 */
+	@Test
+	public void testgetBalance(){
+		//Ensure that the starting balance is 0
+<span class="fc" id="L167">		assertEquals(0, vm1.balance, 0.001);</span>
+				
+<span class="fc" id="L169">		vm1.insertMoney(10);</span>
+<span class="fc" id="L170">		assertEquals(10, vm1.getBalance(),0.001);</span>
+<span class="fc" id="L171">	}</span>
+
+
+	/**
+	 * Test for the makePurchase() method of the {@link VendingMachineItem} class
+	 * for a valid scenario (slot not empty, enough balance to purchase
+	 */
+	@Test
+	public void testMakePurchaseValid(){
+<span class="fc" id="L180">		vm1.addItem(vmItem1, &quot;A&quot;);</span>
+		
+		//Ensure that the starting balance is 0
+<span class="fc" id="L183">		assertEquals(0, vm1.balance, 0.001);</span>
+				
+<span class="fc" id="L185">		vm1.insertMoney(10);</span>
+		//Validate preconditions
+<span class="pc bpc" id="L187" title="1 of 2 branches missed.">		assertTrue(vm1.getBalance() &gt;= 0);</span>
+		//Validate purchase
+<span class="fc" id="L189">		assertTrue(vm1.makePurchase(&quot;A&quot;));		</span>
+		//Assert postconditions
+<span class="fc" id="L191">		assertEquals(0,vm1.getBalance(),0.001);</span>
+		
+<span class="fc" id="L193">		vm1.addItem(vmItem2, &quot;B&quot;);</span>
+<span class="fc" id="L194">		vm1.insertMoney(6);</span>
+		//Validate preconditions
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">		assertTrue(vm1.getBalance() &gt;= 0);</span>
+		//Validate purchase
+<span class="fc" id="L198">		assertTrue(vm1.makePurchase(&quot;B&quot;));		</span>
+		//Assert postconditions
+<span class="fc" id="L200">		assertEquals(0.5,vm1.getBalance(),0.001);</span>
+<span class="fc" id="L201">	}</span>
+
+	
+
+	/**
+	 * Test for the makePurchase() method of the {@link VendingMachineItem} class
+	 * when balance is insufficient to make purchase
+	 */
+	@Test
+	public void testMakePurchaseInsufficientBalance(){
+<span class="fc" id="L211">		vm1.addItem(vmItem1, &quot;A&quot;);</span>
+		//Ensure that the starting balance is 0
+<span class="fc" id="L213">		assertEquals(0, vm1.balance, 0.001);</span>
+				
+<span class="fc" id="L215">		vm1.insertMoney(5);</span>
+		//Validate preconditions
+<span class="pc bpc" id="L217" title="1 of 2 branches missed.">		assertTrue(vm1.getBalance() &gt;= 0);</span>
+		//Validate purchase failed
+<span class="fc" id="L219">		assertFalse(vm1.makePurchase(&quot;A&quot;));		</span>
+		//Assert postconditions
+<span class="fc" id="L221">		assertEquals(5,vm1.getBalance(),0.001);</span>
+<span class="fc" id="L222">	}</span>
+
+	
+	/**
+	 * Test for the makePurchase() method of the {@link VendingMachineItem} class
+	 * when slot is empty
+	 */
+	@Test
+	public void testMakePurchaseEmpty(){
+<span class="fc" id="L231">		vm1.addItem(vmItem1, &quot;A&quot;);</span>
+		//Ensure that the starting balance is 0
+<span class="fc" id="L233">		assertEquals(0, vm1.balance, 0.001);</span>
+		
+<span class="fc" id="L235">		vm1.insertMoney(10);</span>
+		//Validate preconditions
+<span class="pc bpc" id="L237" title="1 of 2 branches missed.">		assertTrue(vm1.getBalance() &gt;= 0);</span>
+		//Validate purchase failed
+<span class="fc" id="L239">		assertFalse(vm1.makePurchase(&quot;B&quot;));		</span>
+		//Assert postconditions
+<span class="fc" id="L241">		assertEquals(10,vm1.getBalance(),0.001);</span>
+<span class="fc" id="L242">	}</span>
+	
+	
+
+	/**
+	 * Test for the returnChange() method of the {@link VendingMachineItem} class
+	 */
+	@Test
+	public void testReturnChange(){
+		//Ensure that the starting balance is 0
+<span class="fc" id="L252">		assertEquals(0, vm1.balance, 0.001);</span>
+				
+<span class="fc" id="L254">		vm1.insertMoney(5.50);</span>
+<span class="fc" id="L255">		assertEquals(5.50, vm1.returnChange(),0.001);</span>
+<span class="fc" id="L256">		assertEquals(0,vm1.getBalance(),0.001);</span>
+<span class="fc" id="L257">	}</span>
+	
+	
+	/**
+	 * Cleans up test objects after a test case is executed.
+	 */
+	@After
+	public void tearDown(){
+<span class="fc" id="L265">		vmItem1 = null;</span>
+<span class="fc" id="L266">		vmItem2 = null;</span>
+<span class="fc" id="L267">		vmItem3 = null;</span>
+<span class="fc" id="L268">		vmItem4 = null;</span>
+<span class="fc" id="L269">		vm1 = null;</span>
+<span class="fc" id="L270">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>VendingMachine (Apr 1, 2016 1:50:25 PM)</div></body></html>
